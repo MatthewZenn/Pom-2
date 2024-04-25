@@ -2,7 +2,7 @@ const sequence = document.getElementById('sequence');
 const current = document.getElementById('current');
 const stringer = document.getElementById('string');
 
-var chars = ["b", "d", "f", "k", "m", "n","p", "r", "v", "z"];
+var chars = ["b", "d", "f", "k", "m", "n","p", "v", "z"];
 var pattern = [];
 var p = 'a';
 
@@ -15,7 +15,7 @@ function sleep(ms) {
 }
 
 function code() {
-  for (let i=0; i<50; i++) {
+  for (let i=0; i<48; i++) {
     pattern.push(chars.random());
   }
   sequence.innerHTML = pattern.join(' ');
@@ -26,6 +26,7 @@ async function currentChar() {
     stringer.innerHTML = pattern.join(' ');
     if (j == pattern.length-1) {
       p = pattern.shift();
+      stringer.innerHTML = pattern.join(' ');
       current.innerHTML = p;
       pattern.push(p);
       j=0;
@@ -40,6 +41,11 @@ async function currentChar() {
   }
 }
 
+document.addEventListener('keydown', (event) => {
+  if (event.key == " ") {
+    pattern.splice(p, 1);
+  }
+});
+
 code();
-console.log(pattern);
 currentChar();
